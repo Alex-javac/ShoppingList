@@ -31,20 +31,36 @@ public class UserDaoExternal implements UserDao {
 
     @Override
     public User getUser(String login, String password) {
-        return jdbcTemplate.query("SELECT users.nickname, users.login, users.password, user_data.email, user_data.first_name, user_data.last_name " +
+        return jdbcTemplate.query("SELECT users.id, users.nickname, users.login, users.password, user_data.email, user_data.first_name, user_data.last_name " +
                 "FROM users, user_data " +
                 "WHERE users.user_data_id = user_data.id " +
-                "and users.login = ? " +
-                "and users.password = ?", new BeanPropertyRowMapper<>(User.class), login, password).stream().findAny().orElse(null);
+                "AND users.login = ? " +
+                "AND users.password = ?", new BeanPropertyRowMapper<>(User.class), login, password).stream().findAny().orElse(null);
     }
 
     @Override
-    public boolean update(int id) {
-        return false;
+    public boolean update(User user) {
+
+        boolean flag1 = jdbcTemplate.update("UPDATE user_data SET email = ?," +
+                        " first_name = ?, " +
+                        "last_name = ?, " +
+                        "create_update = now() " +
+                        "WHERE id = (SELECT users.user_data_id FROM users WHERE users.id =?)",
+                user.getEmail(), user.getFirstName(), user.getLastName(), user.getId()) > 0;
+        boolean flag2 = jdbcTemplate.update("UPDATE users SET nickname = ?, " +
+                        "login = ?, " +
+                        "password = ?, " +
+                        "user_data_id = (SELECT id FROM user_data WHERE email =?)," +
+                        "create_update= now()",
+                user.getNickName(), user.getLogin(), user.getPassword(), user.getEmail()) > 0;
+        return flag1 || flag2;
     }
 
     @Override
-    public boolean deleteUser(int id) {
-        return false;
+    public void deleteUser(User user) {
+        jdbcTemplate.update("DELETE FROM user_data " +
+                "WHERE id = (SELECT users.user_data_id FROM users WHERE users.id =?)",
+                user.getId());
+        jdbcTemplate.update("DELETE FROM users WHERE id = ?", user.getId());
     }
 }

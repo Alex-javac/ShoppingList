@@ -30,17 +30,26 @@
         button:hover {
             opacity: 0.8;
         }
+        /* Center the image and position the close button */
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
     </style>
 </head>
 <body>
-
+<div class="imgcontainer">
 <H1>Вы вошли в приложение</H1>
+
 <img src="img_avatar_gomer.png" alt="Avatar">
 <br/>
 Введенное имя: ${userJSP.login};
 <br/>
 Введенный пороль: ${userJSP.password};
 <br/>
+<br/>
+id: ${userJSP.id};
 <br/>
 email: ${userJSP.email};
 <br/>
@@ -51,5 +60,6 @@ lastName: ${userJSP.lastName};
 nickName: ${userJSP.nickName};
 <br/>
 <button onclick="location.href='main'" style="width:auto;">Main page</button>
+</div>
 </body>
 </html>

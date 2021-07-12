@@ -1,11 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Shopping List</title>
     <style>
         body {
+            background-image: url('../../images/shop_back.jpg');
             font-family: Arial, Helvetica, sans-serif;
         }
 
@@ -50,7 +52,7 @@
 
         img.avatar {
             width: 40%;
-            border-radius: 50%;
+            /*border-radius: 50%;*/
         }
 
         .container {
@@ -143,14 +145,15 @@
 <h1>Shopping List</h1>
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
 <button onclick="location.href='register'" style="width:auto;">Sign up</button>
+
 <spring:form method="post" modelAttribute="userJSP" action="enter">
 
     <div id="id01" class="modal ">
 <div class="modal-content animate">
-        <div class="imgcontainer">
-            <img src="img_avatar_gomer.png" alt="Avatar" class="img.avatar">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-        </div>
+    <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img src="<c:url value='img_avatar_gomer.png'/>" alt="Avatar" class="avatar">
+    </div>
 
         <div class="container">
             <label path="login"><b>Username</b></label>
