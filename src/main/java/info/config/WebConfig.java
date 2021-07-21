@@ -6,6 +6,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 
 public class WebConfig {
+
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -13,4 +14,5 @@ public class WebConfig {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+
 }

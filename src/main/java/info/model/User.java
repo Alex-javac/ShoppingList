@@ -2,6 +2,7 @@ package info.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 
 import java.net.URL;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString
 public class User {
     private List<ProductList> productLists;
     private List<Group> groupList;
@@ -19,5 +21,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private String role;
     private URL picture;
+
 }

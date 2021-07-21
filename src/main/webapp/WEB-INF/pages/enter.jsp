@@ -42,7 +42,7 @@
 <div class="imgcontainer">
 <H1>Вы вошли в приложение</H1>
 
-<img src="img_avatar_gomer.png" alt="Avatar">
+<img src="../../webresources/img_avatar_gomer.png" alt="Avatar">
 <br/>
 Введенное имя: ${userJSP.login};
 <br/>

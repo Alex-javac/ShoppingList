@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-   private final UserDao userDao;
+
+
+   private UserDao userDao;
 @Autowired
-    public UserService(@Qualifier("userDaoExternal") UserDao userDao) {
+    public UserService(@Qualifier("userDaoIpm") UserDao userDao) {
         this.userDao = userDao;
     }
 

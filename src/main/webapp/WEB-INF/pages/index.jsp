@@ -153,6 +153,8 @@
     <div class="imgcontainer">
         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
         <img src="<c:url value='img_avatar_gomer.png'/>" alt="Avatar" class="avatar">
+        <img src="/image" alt="Avatar" class="avatar">
+        <img src="image" alt="Avatar" class="avatar">
     </div>
 
         <div class="container">
