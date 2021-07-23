@@ -38,7 +38,7 @@ public class ControllerShoppingList {
        if(userService.addUser(user)){
            modelAndView.setViewName("secondPage");
        }else {
-           modelAndView.setViewName("breack");
+           modelAndView.setViewName("break");
        }
         modelAndView.addObject("userJSP", user);
         return modelAndView;
@@ -56,11 +56,11 @@ public class ControllerShoppingList {
         modelAndView.addObject("userJSP", updateUser);
         return modelAndView;
     }
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView register() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("createUserJSP", new User());
-        modelAndView.setViewName("register");
+        modelAndView.setViewName("registration");
         return modelAndView;
     }
 

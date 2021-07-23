@@ -3,8 +3,8 @@ package info.service;
 import info.model.User;
 import info.repository.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -12,15 +12,16 @@ public class UserService {
 
    private UserDao userDao;
 @Autowired
-    public UserService(@Qualifier("userDaoIpm") UserDao userDao) {
+    public UserService(UserDao userDao) {
         this.userDao = userDao;
     }
 
     public User getUser(User user){
-        return userDao.getUser(user.getLogin(), user.getPassword());
+        return userDao.getUser(user.getLogin());
     }
-
+@Transactional
     public boolean addUser(User user){
-    return userDao.addUser(user);
+    return userDao.addUserData(user) && userDao.addUser(user);
 }
+
 }

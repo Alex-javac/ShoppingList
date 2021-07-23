@@ -7,7 +7,6 @@
     <title>Shopping List</title>
     <style>
         body {
-            background-image: url('../../images/shop_back.jpg');
             font-family: Arial, Helvetica, sans-serif;
         }
 
@@ -144,7 +143,7 @@
 
 <h1>Shopping List</h1>
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-<button onclick="location.href='register'" style="width:auto;">Sign up</button>
+<button onclick="location.href='registration'" style="width:auto;">Sign up</button>
 
 <spring:form method="post" modelAttribute="userJSP" action="enter">
 
@@ -152,9 +151,6 @@
 <div class="modal-content animate">
     <div class="imgcontainer">
         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <img src="<c:url value='img_avatar_gomer.png'/>" alt="Avatar" class="avatar">
-        <img src="/image" alt="Avatar" class="avatar">
-        <img src="image" alt="Avatar" class="avatar">
     </div>
 
         <div class="container">

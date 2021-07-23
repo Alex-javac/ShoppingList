@@ -26,7 +26,7 @@ private final UserDaoIpm userDao;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        User user = userDao.getUser(authentication.getName(), String.valueOf(authentication.getCredentials()));
+        User user = userDao.getUser(authentication.getName());
         if (authentication.getName().equalsIgnoreCase(user.getLogin()) && authentication.getCredentials().equals(user.getPassword())) {
 
             return new UsernamePasswordAuthenticationToken(user, null, Collections.singleton(new SimpleGrantedAuthority("ROLE_"+user.getRole())));
