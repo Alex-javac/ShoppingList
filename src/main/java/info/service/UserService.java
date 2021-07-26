@@ -19,7 +19,7 @@ public class UserService {
     public User getUser(User user){
         return userDao.getUser(user.getLogin());
     }
-@Transactional
+@Transactional(rollbackFor = Exception.class)
     public boolean addUser(User user){
     return userDao.addUserData(user) && userDao.addUser(user);
 }

@@ -63,6 +63,12 @@ public class ControllerShoppingList {
         modelAndView.setViewName("registration");
         return modelAndView;
     }
-
+    @RequestMapping(value = "/shopList", method = RequestMethod.POST)
+    public ModelAndView shopList(@ModelAttribute("userJSP") User user) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("userJSP", user);
+        modelAndView.setViewName("shopList");
+        return modelAndView;
+    }
     }
 

@@ -45,8 +45,7 @@ public class UserDaoIpm implements UserDao {
     @Override
     public boolean update(User user) {
 
-      return jdbcTemplate.update("BEGIN " +
-                        "UPDATE user_data SET email = :email," +
+      return jdbcTemplate.update("UPDATE user_data SET email = :email," +
                         " first_name = :first_name, " +
                         "last_name = :last_name, " +
                         "create_update = now() " +
@@ -56,8 +55,7 @@ public class UserDaoIpm implements UserDao {
                         "password = :password, " +
                         "user_data_id = (SELECT id FROM user_data WHERE email = :email)," +
                         "create_update= now() " +
-                        "WHERE users.id = :users.id; " +
-                        "END;",  new MapSqlParameterSource()
+                        "WHERE users.id = :users.id; ",  new MapSqlParameterSource()
               .addValue(":email", user.getEmail())
                       .addValue(":first_name",user.getFirstName())
                       .addValue(":last_name",user.getLastName())

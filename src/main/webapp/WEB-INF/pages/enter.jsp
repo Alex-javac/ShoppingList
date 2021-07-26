@@ -61,6 +61,10 @@ lastName: ${userJSP.lastName};
 nickName: ${userJSP.nickName};
 <br/>
 <button onclick="location.href='main'" style="width:auto;">Main page</button>
+    <form method="post" modelAttribute="userJSP" action="shopList">
+
+    <button>Shop List</button>
+    </form>
 </div>
 </body>
 </html>
