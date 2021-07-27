@@ -47,7 +47,9 @@ public class ControllerShoppingList {
     @RequestMapping(value = "/enter", method = RequestMethod.POST)
     public ModelAndView enterUserPost(@ModelAttribute("userJSP") User user) {
         ModelAndView modelAndView = new ModelAndView();
+        System.out.println("enter after :"+user);
         User updateUser = userService.getUser(user);
+        System.out.println("enter before :"+updateUser);
         if(updateUser != null){
             modelAndView.setViewName("enter");
         }else {

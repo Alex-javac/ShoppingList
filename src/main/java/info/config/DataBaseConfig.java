@@ -40,15 +40,15 @@ public class DataBaseConfig {
         return new JdbcTemplate(dataSource());
     }
 
-    @Bean
-    public UserDao userDao(){
-        return new UserDaoIpm(jdbcTemplate());
-    }
-    @Bean
-    public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
-        DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
-        dataSourceTransactionManager.setDataSource(dataSource);
-
-        return dataSourceTransactionManager;
-    }
+//    @Bean
+//    public UserDao userDao(){
+//        return new UserDaoIpm(jdbcTemplate());
+//    }
+//    @Bean
+//    public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
+//        DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
+//        dataSourceTransactionManager.setDataSource(dataSource);
+//
+//        return dataSourceTransactionManager;
+//    }
 }

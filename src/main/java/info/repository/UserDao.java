@@ -3,13 +3,14 @@ package info.repository;
 import info.model.User;
 
 public interface UserDao {
-    boolean addUser(User user);
+    User addUser(User user);
 
-    boolean update(User user);
+    User update(User user);
 
-    void deleteUser(int id);
+    void deleteUser(long id);
 
     User getUser(String login);
 
-    boolean addUserData(User user);
+    User get(long id);
+
 }
