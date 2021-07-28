@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private String[] OPEN_ENDPOINTS = {"/", "/index", "/registration", "/secondPage", "/break", "/enterBreak","/check-user","/enter"};
+    private String[] OPEN_ENDPOINTS = {"/", "/index", "/registration", "/secondPage", "/break", "/enterBreak","/check-user"};
     private final CustomAuthProvider provider;
 
     @Autowired
@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(OPEN_ENDPOINTS).permitAll()
-                .antMatchers( "/shopList").hasRole("USER")
+                .antMatchers( "/enter","/shopList").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

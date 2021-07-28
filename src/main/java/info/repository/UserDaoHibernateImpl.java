@@ -2,32 +2,36 @@ package info.repository;
 
 import info.model.Group;
 import info.model.Role;
-import org.hibernate.Query;
+import info.model.User;
+import info.util.SessionUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import info.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 @Repository
-public class UserDaoHibernateImpl implements UserDao {
+public class UserDaoHibernateImpl extends SessionUtil implements UserDao {
 
-    private final SessionFactory sessionFactory;
-
-    @Autowired
     public UserDaoHibernateImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        super(sessionFactory);
     }
 
     @Override
     public User addUser(User user) {
+        openTransactionSession();
         Session session = getSession();
         Role role = session.get(Role.class, 1L);
         user.setRole(role);
         Group group = session.get(Group.class, 1L);
         user.setGroup(group);
-        System.out.println(user);
+        user.setDate(new Date(Calendar.getInstance().getTime().getTime()));
+        System.out.println("addUser after: " + user);
         session.save(user);
+        closeTransactionSession();
+        System.out.println("addUser before: " + user);
         return user;
     }
 
@@ -38,25 +42,39 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void deleteUser(long id) {
+        openTransactionSession();
         Session session = getSession();
         session.delete(session.get(User.class, id));
+        closeTransactionSession();
     }
 
     @Override
-    public User getUser(String login) {
-        Query query = getSession().createSQLQuery("from users where login = :login");
-        query.setString("login", login);
-        User u = (User) query.uniqueResult();
-        return u;
-    }
+    public User getUserByLogin(String login) {
+        openTransactionSession();
 
-    @Override
-    public User get(long id) {
         Session session = getSession();
-        return session.get(User.class, id);
+        String sql = "SELECT * FROM users WHERE login = :login";
+        Query query = session.createNativeQuery(sql).addEntity(User.class);
+        query.setParameter("login", login);
+        User user = (User) query.getSingleResult();
+
+        closeTransactionSession();
+        return user;
     }
 
-    private Session getSession() {
-        return sessionFactory.openSession();
+    @Override
+    public User getUserById(long id) {
+        openTransactionSession();
+
+        String sql = "SELECT * FROM users WHERE id = :id";
+        Session session = getSession();
+        Query query = session.createNativeQuery(sql).addEntity(User.class);
+        query.setParameter("id", id);
+        User user = (User) query.getSingleResult();
+
+        closeTransactionSession();
+
+        return user;
     }
+
 }

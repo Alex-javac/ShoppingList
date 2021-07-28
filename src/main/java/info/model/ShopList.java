@@ -33,7 +33,7 @@ public class ShopList {
     private List<Group> group;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "lists_products", joinColumns = @JoinColumn(name = "lists_id"), inverseJoinColumns = @JoinColumn(name = "products_id"))
     @Fetch(value = FetchMode.SUBSELECT)
-    private List<ProductType.Product> products;
+    @JoinTable(name = "lists_products", joinColumns = @JoinColumn(name = "lists_id"), inverseJoinColumns = @JoinColumn(name = "products_id"))
+    private List<Product> products;
 }
