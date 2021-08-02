@@ -14,35 +14,18 @@ public class SessionUtil {
         this.sessionFactory = sessionFactory;
     }
 
+    private Session session;
+    private Transaction transaction;
 
-        private Session session;
-        private Transaction transaction;
-
-        public Session getSession() {
-            return session;
-        }
-
-        public Transaction getTransaction() {
-            return transaction;
-        }
-
-        public Session openSession() {
-            return sessionFactory.openSession();
-        }
-
-        public Session openTransactionSession() {
-            session = openSession();
-            transaction = session.beginTransaction();
-            return session;
-        }
-
-        public void closeSession() {
-            session.close();
-        }
-
-        public void closeTransactionSession() {
-            transaction.commit();
-            closeSession();
-        }
+    public Session openSession() {
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        return session;
     }
+
+    public void closeSession() {
+        transaction.commit();
+        session.close();
+    }
+}
 

@@ -8,12 +8,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+
 @Configuration
 @PropertySource("classpath:application.properties")
 public class DataBaseConfig {
 
     @Value("${db.url}")
-    private  String URL_KEY ;
+    private String URL_KEY;
     @Value("${db.username}")
     private String USERNAME_KEY;
     @Value("${db.password}")
@@ -21,7 +22,7 @@ public class DataBaseConfig {
 
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl(URL_KEY);
@@ -31,7 +32,7 @@ public class DataBaseConfig {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate(){
+    public JdbcTemplate jdbcTemplate() {
         return new JdbcTemplate(dataSource());
     }
 

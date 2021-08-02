@@ -29,11 +29,15 @@ public class ShopList {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
-    @JoinTable(name = "fam_lists", joinColumns = @JoinColumn(name = "lists_id"), inverseJoinColumns = @JoinColumn(name = "fam_id"))
+    @JoinTable(name = "fam_lists",
+            joinColumns = @JoinColumn(name = "lists_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "fam_id", referencedColumnName = "id"))
     private List<Group> group;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
-    @JoinTable(name = "lists_products", joinColumns = @JoinColumn(name = "lists_id"), inverseJoinColumns = @JoinColumn(name = "products_id"))
+    @JoinTable(name = "lists_products",
+            joinColumns = @JoinColumn(name = "lists_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "products_id", referencedColumnName = "id"))
     private List<Product> products;
 }

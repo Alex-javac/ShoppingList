@@ -22,8 +22,8 @@ public class Group {
     private String name;
 
     @OneToMany(mappedBy = "group")
-    List<User> users = new ArrayList<>();
+    List<User> users;
 
-    @ManyToMany(mappedBy = "group")
+    @ManyToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private List<ShopList> shopLists;
 }

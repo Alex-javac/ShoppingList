@@ -7,14 +7,15 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.net.URL;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @Entity
-@Table(name = "users", schema="shopping_list")
+@Table(name = "users", schema = "shopping_list")
 public class User {
 
     @Id

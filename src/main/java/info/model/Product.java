@@ -28,6 +28,6 @@ public class Product {
     @JoinColumn(name = "product_type_id")
     private ProductType productType;
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private List<ShopList> shopLists;
 }
