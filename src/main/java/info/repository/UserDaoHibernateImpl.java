@@ -1,0 +1,70 @@
+package info.repository;
+
+import info.model.Group;
+import info.model.Role;
+import info.model.User;
+import info.util.SessionUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
+
+
+import java.util.Calendar;
+import java.util.Date;
+
+@Repository
+public class UserDaoHibernateImpl extends SessionUtil implements UserDao {
+
+    public UserDaoHibernateImpl(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
+    @Override
+    public User addUser(User user) {
+        Session session = openSession();
+        Role role = session.get(Role.class, 1L);
+        user.setRole(role);
+        Group group = session.get(Group.class, 1L);
+        user.setGroup(group);
+        user.setDate(new Date(Calendar.getInstance().getTime().getTime()));
+        session.save(user);
+        closeSession();
+        return user;
+    }
+
+    @Override
+    public User update(User user) {
+        return null;
+    }
+
+    @Override
+    public void deleteUser(long id) {
+        Session session = openSession();
+        session.delete(session.get(User.class, id));
+        closeSession();
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        Session session = openSession();
+        String sql = "SELECT * FROM users WHERE login = :login";
+        Query query = session.createNativeQuery(sql).addEntity(User.class);
+        query.setParameter("login", login);
+        User user = (User) query.getSingleResult();
+        closeSession();
+        return user;
+    }
+
+    @Override
+    public User getUserById(long id) {
+        Session session = openSession();
+        String sql = "SELECT * FROM users WHERE id = :id";
+        Query query = session.createNativeQuery(sql).addEntity(User.class);
+        query.setParameter("id", id);
+        User user = (User) query.getSingleResult();
+        closeSession();
+        return user;
+    }
+
+}

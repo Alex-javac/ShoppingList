@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(OPEN_ENDPOINTS).permitAll()
-                .antMatchers("/enter", "/shopList").hasRole("USER")
+                .antMatchers( "/enter","/shopList").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

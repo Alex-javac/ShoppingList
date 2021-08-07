@@ -1,7 +1,7 @@
 package info.security;
 
 import info.model.User;
-import info.repository.UserDaoIpm;
+import info.repository.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,20 +16,19 @@ import java.util.Collections;
 public class CustomAuthProvider implements AuthenticationProvider {
 
 
-private final UserDaoIpm userDao;
+    private final UserDao userDao;
 
     @Autowired
-    public CustomAuthProvider(UserDaoIpm userDao) {
+    public CustomAuthProvider(UserDao userDao) {
         this.userDao = userDao;
     }
 
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        User user = userDao.getUser(authentication.getName());
-        if (authentication.getName().equalsIgnoreCase(user.getLogin()) && authentication.getCredentials().equals(user.getPassword())) {
-
-            return new UsernamePasswordAuthenticationToken(user, null, Collections.singleton(new SimpleGrantedAuthority("ROLE_"+user.getRole())));
+        User user = userDao.getUserByLogin(authentication.getName());
+        if (authentication.getCredentials().equals(user.getPassword())) {
+            return new UsernamePasswordAuthenticationToken(user, null, Collections.singleton(new SimpleGrantedAuthority(user.getRole().getRole())));
         }
         return new UsernamePasswordAuthenticationToken(user, null);
     }

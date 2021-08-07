@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControllerShoppingList {
 
-   private final UserService userService;
+    private final UserService userService;
 
     public ControllerShoppingList(UserService userService) {
         this.userService = userService;
@@ -24,6 +24,7 @@ public class ControllerShoppingList {
         modelAndView.setViewName("index");
         return modelAndView;
     }
+
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public ModelAndView backToMain() {
         ModelAndView modelAndView = new ModelAndView();
@@ -35,11 +36,11 @@ public class ControllerShoppingList {
     @RequestMapping(value = "/check-user", method = RequestMethod.POST)
     public ModelAndView checkUserPost(@ModelAttribute("userJSP") User user) {
         ModelAndView modelAndView = new ModelAndView();
-       if(userService.addUser(user)){
-           modelAndView.setViewName("secondPage");
-       }else {
-           modelAndView.setViewName("break");
-       }
+        if (userService.addUser(user)) {
+            modelAndView.setViewName("secondPage");
+        } else {
+            modelAndView.setViewName("break");
+        }
         modelAndView.addObject("userJSP", user);
         return modelAndView;
     }
@@ -48,14 +49,15 @@ public class ControllerShoppingList {
     public ModelAndView enterUserPost(@ModelAttribute("userJSP") User user) {
         ModelAndView modelAndView = new ModelAndView();
         User updateUser = userService.getUser(user);
-        if(updateUser != null){
+        if (updateUser != null) {
             modelAndView.setViewName("enter");
-        }else {
+        } else {
             modelAndView.setViewName("enterBreak");
         }
         modelAndView.addObject("userJSP", updateUser);
         return modelAndView;
     }
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView register() {
         ModelAndView modelAndView = new ModelAndView();
@@ -63,6 +65,7 @@ public class ControllerShoppingList {
         modelAndView.setViewName("registration");
         return modelAndView;
     }
+
     @RequestMapping(value = "/shopList", method = RequestMethod.POST)
     public ModelAndView shopList(@ModelAttribute("userJSP") User user) {
         ModelAndView modelAndView = new ModelAndView();
@@ -70,5 +73,5 @@ public class ControllerShoppingList {
         modelAndView.setViewName("shopList");
         return modelAndView;
     }
-    }
+}
 
