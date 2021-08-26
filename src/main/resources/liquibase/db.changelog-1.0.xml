@@ -1,0 +1,259 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet id="1.0.0" author="alexander.alekseyuk">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="login" type="VARCHAR(55)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="first_name" type="VARCHAR(55)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_name" type="VARCHAR(55)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="nickname" type="VARCHAR(55)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.1" author="alexander.alekseyuk">
+        <createTable tableName="role">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="role" type="VARCHAR(55)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.2" author="alexander.alekseyuk">
+        <createTable tableName="user_roles">
+            <column name="users_id" type="BIGINT">
+            </column>
+            <column name="roles_id" type="BIGINT">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.3" author="alexander.alekseyuk">
+        <addForeignKeyConstraint baseColumnNames="users_id"
+                                 baseTableName="user_roles"
+                                 constraintName="fk_user_roles_user"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet id="1.0.4" author="alexander.alekseyuk">
+        <addForeignKeyConstraint baseColumnNames="roles_id"
+                                 baseTableName="user_roles"
+                                 constraintName="fk_user_roles_roles"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="role"/>
+    </changeSet>
+
+    <changeSet id="1.0.5" author="alexander.alekseyuk">
+        <createTable tableName="fam">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR(55)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.6" author="alexander.alekseyuk">
+        <createTable tableName="users_fam">
+            <column name="users_id" type="BIGINT">
+            </column>
+            <column name="fam_id" type="BIGINT">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.7" author="alexander.alekseyuk">
+        <addForeignKeyConstraint baseColumnNames="users_id"
+                                 baseTableName="users_fam"
+                                 constraintName="fk_user_fam_user"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet id="1.0.8" author="alexander.alekseyuk">
+        <addForeignKeyConstraint baseColumnNames="fam_id"
+                                 baseTableName="users_fam"
+                                 constraintName="fk_user_fam_fam"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fam"/>
+    </changeSet>
+
+    <changeSet id="1.0.9" author="alexander.alekseyuk">
+        <createTable tableName="lists">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="created" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.10" author="alexander.alekseyuk">
+        <createTable tableName="fam_lists">
+            <column name="fam_id" type="BIGINT">
+            </column>
+            <column name="lists_id" type="BIGINT">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.11" author="alexander.alekseyuk">
+        <addForeignKeyConstraint baseColumnNames="fam_id"
+                                 baseTableName="fam_lists"
+                                 constraintName="fk_fam_lists_fam"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet id="1.0.12" author="alexander.alekseyuk">
+        <addForeignKeyConstraint baseColumnNames="lists_id"
+                                 baseTableName="fam_lists"
+                                 constraintName="fk_fam_lists_lists"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lists"/>
+    </changeSet>
+
+    <changeSet id="1.0.13" author="alexander.alekseyuk">
+        <createTable tableName="product_type">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR(55)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.14" author="alexander.alekseyuk">
+        <createTable tableName="products">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR(55)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="price" type="float">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="product_type_id" type="BIGINT">
+            </column>
+
+            <column name="created" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.15" author="alexander.alekseyuk">
+        <addForeignKeyConstraint baseColumnNames="product_type_id"
+                                 baseTableName="products"
+                                 constraintName="fk_product_type_product"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product_type"/>
+    </changeSet>
+
+    <changeSet id="1.0.16" author="alexander.alekseyuk">
+        <createTable tableName="lists_products">
+            <column name="lists_id" type="BIGINT">
+            </column>
+            <column name="products_id" type="BIGINT">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.17" author="alexander.alekseyuk">
+        <addForeignKeyConstraint baseColumnNames="lists_id"
+                                 baseTableName="lists_products"
+                                 constraintName="fk_lists_products_lists"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lists"/>
+    </changeSet>
+
+    <changeSet id="1.0.18" author="alexander.alekseyuk">
+        <addForeignKeyConstraint baseColumnNames="products_id"
+                                 baseTableName="lists_products"
+                                 constraintName="fk_lists_products_products"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="products"/>
+    </changeSet>
+
+</databaseChangeLog>
