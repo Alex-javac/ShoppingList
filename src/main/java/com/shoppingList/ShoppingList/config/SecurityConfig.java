@@ -15,7 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
 
 
-    private String[] OPEN_ENDPOINTS = {"/soppinglist/login"};
+    private String[] OPEN_ENDPOINTS = {"/soppinglist/login","/swagger-ui/**"};
 
     @Autowired
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
